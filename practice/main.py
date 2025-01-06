@@ -7,10 +7,16 @@ class Dog:
 
 class GuardDog(Dog): 
 
+    def __init__(self, name, breed):
+        super().__init__(name, breed, 5)
+
     def rrr(self):
         print("Stay away!")
 
 class Puppy(Dog):
+
+    def __init__(self, name, breed):
+        super().__init__(name, breed, 0.1)
 
     def __str__(self):
         return f"{self.name}, {self.breed}"

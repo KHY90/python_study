@@ -7,6 +7,21 @@ response = requests.get(url)
 
 soup = BeautifulSoup(response.content, "html.parser",)
 
-jobs = soup.find("section", class_ = "jobs").find_all("li") # class_ _를 붙여야 검색이 된다.
+jobs = soup.find("section", class_ = "jobs").find_all("li")[1:-1] # class_ _를 붙여야 검색이 된다.
 
-print(jobs)
+all_jobs = []
+
+for job in jobs:
+    title = job.find("span", class_="title").text
+    company, position, region = job.find_all("span", class_="company")
+    url = job.find("div", class_="tooltipn").next_sibling["href"]
+    job_data = {
+        "title": title,
+        "company": company.text,
+        "position": position.text,
+        "region": region.text,
+        "url": f"https://weworkremotely.com{url}"
+    }
+    all_jobs.append(job_data)
+
+print(all_jobs)

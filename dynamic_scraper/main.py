@@ -37,3 +37,22 @@ content = page.content()
 p.stop()
 
 soup =BeautifulSoup(content, "html.parser")
+
+jobs = soup.find_all("div", class_="JobCard_container__REty8")
+
+jobs_db = []
+
+for job in jobs:
+    link = f"https://www.wanted.co.kr/{job.find("a")["href"]}"
+    title = job.find("strong", class_="JobCard_title__HBpZf").text
+    company_name = job.find("span", class_="JobCard_companyName__N1YrF").text
+    reward = job.find("span", class_="JobCard_companyName__N1YrF").text
+    job = {
+        "title":title,
+        "company name":company_name,
+        "reward":reward,
+        "link":link
+    }
+    jobs_db.append(job)
+
+print(jobs_db)
